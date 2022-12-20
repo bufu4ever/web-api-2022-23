@@ -1,6 +1,5 @@
-let ArrIp = ["ipShawn","ipWork","ipHome",myip];
+let ArrIp = ["::1","::2","::3","::4"];
 const express = require ('express');
-let myip;
 const app=express();
 const auth = require('./api/v1/midllewares/auth');
 const moragan = require('morgan');
@@ -16,5 +15,4 @@ app.use("/product", Productrouter);
 
 
 module.exports=app;
-
 

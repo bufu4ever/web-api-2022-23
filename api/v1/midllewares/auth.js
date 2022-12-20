@@ -1,21 +1,15 @@
 module.exports = function(req, res, next)
 {   
     const myip = req.socket.remoteAddress;
+    let ArrIp = ["::1","::2","::3","::4"];
     console.log("connecting from ip "+req.socket.remoteAddress);
-    next();
-    let ArrIp = ["ipShawn","ipWork","ipHome",myip];
-    for(let i = 0; i < ArrIp; i++)
+    for(let i = 0; i < ArrIp.length; i++)
 {
-    if(ArrIp[i] = myip)
+    if(ArrIp[i] == myip)
     {
         console.log("connected ip"+ res.socket.arr);
         next();
     } 
-    else
-    {
-        console.log(res.status (404)+"not allowd");
-    }
 }
+return res.status(404).json({Msg:"not allowd"});
 }
-module.exports = myip;
-res.socket(myip);
