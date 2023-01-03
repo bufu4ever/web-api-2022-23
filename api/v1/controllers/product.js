@@ -31,7 +31,12 @@ module.exports = {
     },
     AddProduct : (req,res)=>{
         let connection = global.MySqlDb;
-        connection.query("INSERT INTO t_products (pname,price,pdesc,picname)VALUES('meat','50','nice','meat.jpg')"+req.params.AddProduct,function(err,rows,fields){
+        const pname = req.body.pname;
+        const price = req.body.price;
+        const pdesc = req.body.pdesc;
+        const picname = req.body.picname;
+        let sql = "INSERT INTO t_products (pname,price,pdesc,picname)VALUES('"+pname+"','"+price+"','"+pdesc+"','"+picname+"')";
+        connection.query(sql,function(err,rows,fields){
             if(err)
             {
                 console.log(err.message);
@@ -43,11 +48,15 @@ module.exports = {
                 return res.status(200).json(rows);
             }
         });
-        return res.status(200).json({Msg:"Add Product"});
     },
     UpdateProduct : (req,res)=>{
         let connection = global.MySqlDb;
-        connection.query("UPDATE t_products SET price = '39' WHERE pname = 'milk'"+req.params.UpdateProduct,function(err,rows,fields){
+        const pname = req.body.pname;
+        const price = req.body.price;
+        const pdesc = req.body.pdesc;
+        const picname = req.body.picname;
+        let sql = "UPDATE t_products SET pname= '"+pname+"', price='"+price+"',pdesc='"+pdesc+"',picname='"+picname+"'WHERE pid="+req.params.id;
+        connection.query(sql,function(err,rows,fields){
             if(err)
             {
                 console.log(err.message);
@@ -59,11 +68,12 @@ module.exports = {
                 return res.status(200).json(rows);
             }
         });
-        return res.status(200).json({Msg:"UpDate Product"});
     },
     DeleteProduct : (req,res)=>{
         let connection = global.MySqlDb;
-        connection.query("DELETE t_products WHERE pid="+req.params.DeleteProduct,function(err,rows,fields){
+        let sql = "DELETE FROM t_products WHERE pid="+req.params.id;
+        console.log(sql);
+        connection.query(sql,function(err,rows,fields){
             if(err)
             {
                 console.log(err.message);
@@ -75,6 +85,6 @@ module.exports = {
                 return res.status(200).json(rows);
             }
         });
-        return res.status(200).json({Msg:"Delete Product By Id " + req.params.id});
+       //return res.status(200).json({Msg:"Delete Product By Id " + req.params.id});
     }
 };
